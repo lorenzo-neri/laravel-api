@@ -12,6 +12,7 @@ use App\Models\Type;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
+use function PHPSTORM_META\type;
 use function PHPUnit\Framework\isNull;
 
 class ProjectController extends Controller
@@ -87,9 +88,10 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProjectRequest $request, Project $project)
+    /* public function update(UpdateProjectRequest $request, Project $project)
     {
         $valData = $request->validated();
+
 
         $valData['slug'] = Str::slug($request->title, '-');
 
@@ -113,6 +115,9 @@ class ProjectController extends Controller
         // eseguo un detach per rimuovere tutti i vecchi collegamenti con le tecnologie
         $project->technologies()->detach();
 
+        //dd($project->type);
+
+
 
         // dd($valData);
         // AGGIORNA L'ENTITA' CON I VALORI DI $valData
@@ -122,6 +127,46 @@ class ProjectController extends Controller
         // prendo i dati della richiesta e lo passo nel model Technology e tramite attach, creo il collegamento nella tabella condivisa tra project e tecnology
         $project->technologies()->attach($request->technologies);
 
+
+        return to_route('admin.projects.index')->with('status', 'Progetto modificato con successo 🥳');
+    } */
+
+    public function update(UpdateProjectRequest $request, Project $project)
+    {
+
+        $data = $request->all();
+
+        $data['slug'] = Str::slug($request->title, '-');
+
+
+        if ($request->has('thumb')) {
+
+            // SALVA L'IMMAGINE NEL FILESYSTEM
+            $newThumb = $request->thumb;
+            $path = Storage::put('thumbs', $newThumb);
+
+            // SE IL FUMETTO HA GIA' UNA COVER NEL DB  NEL FILE SYSTEM, DEVE ESSERE ELIMINATA DATO CHE LA STIAMO SOSTITUENDO
+            if (!isNull($project->thumb) && Storage::fileExists($project->thumb)) {
+                // ELIMINA LA VECCHIA PREVIEW
+                Storage::delete($project->thumb);
+            }
+
+            // ASSEGNA AL VALORE DI $valData IL PERCORSO DELL'IMMAGINE NELLO STORAGE
+            $valData['thumb'] = $path;
+        }
+
+        // eseguo un detach per rimuovere tutti i vecchi collegamenti con le tecnologie
+
+        $project->technologies()->detach();
+
+
+        // aggiorno i dati del mio progetto
+        $project->update($data);
+
+
+        // prendo i dati della richiesta e lo passo nel model Technology e tramite attach, creo il collegamento nella tabella condivisa tra project e tecnology
+
+        $project->technologies()->attach($request->technologies);
 
         return to_route('admin.projects.index')->with('status', 'Progetto modificato con successo 🥳');
     }

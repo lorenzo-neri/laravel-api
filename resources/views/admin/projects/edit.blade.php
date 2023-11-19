@@ -105,6 +105,8 @@
 
                     </div>
 
+
+
                     <div class="mb-3">
                         <label for="type_id" class="form-label">Types</label>
                         <select class="form-select @error('type_id') is-invalid  @enderror" name="type_id" id="type_id">
@@ -122,6 +124,8 @@
                     @error('type_id')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
+
+
 
                     <div class="mb-3">
                         <label for="technologies" class="form-label">Technologies</label>
