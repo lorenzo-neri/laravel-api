@@ -36,6 +36,9 @@ class LeadController extends Controller
         $new_lead->fill($data);
         $new_lead->save();
 
+        // save the new lead in the db - pacificdev
+        #$new_lead = Lead::create($request->all());
+
         Mail::to('info@boolpress.com')->send(new NewContact($new_lead));
 
         return response()->json(
