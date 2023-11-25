@@ -20,7 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 /* test api */
 /* Route::get('projects', function () {
     return response()->json([
@@ -32,3 +31,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/projects', [ProjectController::class, 'index']);
 Route::get('/projects/{project:slug}', [ProjectController::class, 'show']);
+
+//route for the Api\LeadController for the mail
+Route::post('/contacts', [LeadController::class, 'store']);
