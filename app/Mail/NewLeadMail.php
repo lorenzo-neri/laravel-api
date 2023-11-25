@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class NewContact extends Mailable
+class NewLeadMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -41,7 +41,7 @@ class NewContact extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.new-lead-mail',
+            view: 'mail.new-lead-email',
         );
     }
 

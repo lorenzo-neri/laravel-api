@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 
-use App\Mail\NewContact;
+use App\Mail\NewLeadMail;
 use App\Models\Lead;
 
 class LeadController extends Controller
@@ -31,15 +31,17 @@ class LeadController extends Controller
             ]);
         }
 
-        $data = $request->all();
-        $new_lead = new Lead();
-        $new_lead->fill($data);
-        $new_lead->save();
+        /* $data = $request->all();
+        $lead = new Lead();
+        $lead->fill($data);
+        $lead->save(); */
+
+
 
         // save the new lead in the db - pacificdev
-        #$new_lead = Lead::create($request->all());
+        $lead = Lead::create($request->all());
 
-        Mail::to('info@boolpress.com')->send(new NewContact($new_lead));
+        Mail::to('info@boolpress.com')->send(new NewLeadMail($lead));
 
         return response()->json(
             [
