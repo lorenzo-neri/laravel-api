@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\Api\ProjectController;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\API\LeadController;
+use App\Http\Controllers\Api\ProjectController;
+use App\Http\Controllers\Api\TypeController;
 
+use App\Http\Controllers\API\LeadController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -33,6 +34,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/projects', [ProjectController::class, 'index']);
 Route::get('/projects/{project:slug}', [ProjectController::class, 'show']);
+
+Route::get('types', [TypeController::class, 'index']);
 
 //route for the Api\LeadController for the mail
 Route::post('/contacts', [LeadController::class, 'store']);
