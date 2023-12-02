@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\Project;
+use App\Models\Technology;
 use App\Models\Type;
 
 class TypeController extends Controller
@@ -26,7 +28,7 @@ class TypeController extends Controller
      */
     public function show($slug)
     {
-        $type = Type::with('projects', 'projects.technologies', 'projects.type')->where('slug', $slug)->first();
+        $type = Type::with('projects', 'projects.type', 'projects.technologies')->where('slug', $slug)->first();
 
         if ($type) {
             return response()->json([

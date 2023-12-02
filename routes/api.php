@@ -36,6 +36,7 @@ Route::get('/projects', [ProjectController::class, 'index']);
 Route::get('/projects/{project:slug}', [ProjectController::class, 'show']);
 
 Route::get('types', [TypeController::class, 'index']);
+Route::get('types/{type:slug}', [TypeController::class, 'show']);
 
 //route for the Api\LeadController for the mail
 Route::post('/contacts', [LeadController::class, 'store']);
