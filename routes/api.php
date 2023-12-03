@@ -6,8 +6,10 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\TypeController;
+use App\Http\Controllers\Api\TechnologyController;
 
 use App\Http\Controllers\API\LeadController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -37,6 +39,9 @@ Route::get('/projects/{project:slug}', [ProjectController::class, 'show']);
 
 Route::get('types', [TypeController::class, 'index']);
 Route::get('types/{type:slug}', [TypeController::class, 'show']);
+
+Route::get('technologies', [TechnologyController::class, 'index']);
+Route::get('technologies/{technologies:slug}', [TechnologyController::class, 'show']);
 
 //route for the Api\LeadController for the mail
 Route::post('/contacts', [LeadController::class, 'store']);
