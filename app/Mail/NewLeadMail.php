@@ -30,7 +30,7 @@ class NewLeadMail extends Mailable
     {
         return new Envelope(
             #replyTo: $this->lead->address,
-            replyTo: '',
+            replyTo: '', #⬆
             subject: 'New Lead Mail',
         );
     }
@@ -41,7 +41,8 @@ class NewLeadMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.new-lead-email',
+            /* markdown: 'mail.test', */ #precedenza
+            markdown: 'mail.new-lead-email',
         );
     }
 

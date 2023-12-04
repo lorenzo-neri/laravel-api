@@ -1,9 +1,9 @@
 <x-mail::message>
 # Introduction
+grazie in minuscolo
+Mail ricevuta
 
-The body of your message.
-
-<x-mail::button :url="''">
+<x-mail::button :url="'https://www.google.com/'">
 Button Text
 </x-mail::button>
 

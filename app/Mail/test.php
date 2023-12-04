@@ -13,12 +13,14 @@ class test extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $lead;
+
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($lead)
     {
-        //
+        $this->lead = $lead;
     }
 
     /**
@@ -27,7 +29,9 @@ class test extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Test',
+            #replyTo: $this->lead->address,
+            replyTo: '', #⬆
+            subject: 'Confirmation email',
         );
     }
 
